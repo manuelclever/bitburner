@@ -3,7 +3,7 @@ import {findHackable} from "controlCenter.js";
 import {hackServer} from "controlCenter.js";
 
 export async function main(ns) {
-    const serverRam = 256;
+    var serverRam = 256;
     if (ns.args[0] !== "undefined") {
         serverRam = ns.args[0];
     }

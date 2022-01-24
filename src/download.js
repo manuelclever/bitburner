@@ -16,7 +16,7 @@ export async function main(ns) {
         await ns.wget(url + "hx/harakiri-sushi.js", "/hx/harakiri-sushi.js", server);
         await ns.wget(url + "hx/hong-fang-tea.js", "/hx/hong-fang-tea.js", server);
         await ns.wget(url + "hx/iron-gym.js", "/hx/iron-gym.js", server);
-        await ns.wget(url + "hx/jeosguns.js", "/hx/jeosguns.js", server);
+        await ns.wget(url + "hx/joesguns.js", "/hx/joesguns.js", server);
         await ns.wget(url + "hx/n00dles.js", "/hx/n00dles.js", server);
         await ns.wget(url + "hx/sigma-cosmetics.js", "/hx/sigma-cosmetics.js", server);
     }
