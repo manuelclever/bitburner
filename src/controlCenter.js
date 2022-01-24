@@ -23,11 +23,11 @@ export async function findHackable(ns, allServers) {
 }
 
 export async function hackServer (ns, server) {
-	if ( (ns.getServerMoneyAvailable(server) / ns.getServerMaxMoney(server) ) < 0.4) {
-		await ns.grow(server);
-	} else if (ns.hackAnalyzeChance < 0.75 || ns.getServerSecurityLevel > 25) {
+	if (ns.hackAnalyzeChance < 0.75 || ns.getServerSecurityLevel > 20) {
 		await ns.weaken(server);
-	} else {
+	} else if ( (ns.getServerMoneyAvailable(server) / ns.getServerMaxMoney(server) ) < 0.75) {
+		await ns.grow(server);
+	}else {
 		await ns.hack(server);
 	}
 }

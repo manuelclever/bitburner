@@ -3,6 +3,9 @@ import {findHackable} from "controlCenter.js";
 import {hackServer} from "controlCenter.js";
 
 export async function main(ns) {
+    
+
+
     await ns.run("/hx/n00dles.js");
     await ns.run("/hx/foodnstuff.js");
     await ns.run("/hx/sigma-cosmetics.js")
