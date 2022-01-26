@@ -13,6 +13,7 @@ export async function main(ns) {
         await ns.wget(url + "run.js", "run.js", server);
         await ns.wget(url + "download.js", "download.js", server);
         await ns.wget(url + "targets.txt", "targets.txt", server);
+        await ns.wget(url + "myserv.txt", "myserv.txt", server);
 
         await ns.wget(url + "hx/foodnstuff.js", "/hx/foodnstuff.js", server);
         await ns.wget(url + "hx/harakiri-sushi.js", "/hx/harakiri-sushi.js", server);
