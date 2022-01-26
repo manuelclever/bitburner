@@ -5,6 +5,7 @@ export async function main(ns) {
     
     for(var i = 0; i < ns.args.length; i++) {
         var server = ns.args[i];
+        ns.tprint("Downloading for " + server);
 
         await ns.wget(url + "controlCenter.js", "controlCenter.js", server);
         await ns.wget(url + "serverInfos.js", "serverInfos.js", server);
@@ -20,4 +21,5 @@ export async function main(ns) {
         await ns.wget(url + "hx/n00dles.js", "/hx/n00dles.js", server);
         await ns.wget(url + "hx/sigma-cosmetics.js", "/hx/sigma-cosmetics.js", server);
     }
+    ns.tprint("Downloads are finished");
 }
