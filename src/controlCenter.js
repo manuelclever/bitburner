@@ -6,7 +6,7 @@ export async function main(ns) {
 
 export async function updateHackableTargets(ns) {
 	var file = ns.read("targets.txt");
-	var targets = file.split("\r\n");
+	var targets = file.split("\n");
 	
 	var hackable = getHackable(targets);
 	await writeNewFile(hackable);
