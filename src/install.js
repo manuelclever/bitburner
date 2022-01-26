@@ -1,18 +1,15 @@
 /** @param {NS} ns **/
-import {findHackable} from "controlCenter.js";
+import {updateHackableTargets} from "controlCenter.js";
 
 export async function main(ns) {
+	await updateHackableTargets(ns);
+	var file = ns.read("targets_hackable.txt");
+	var targets = file.split("\n");
+
 	
-	let myPromise  = findHackable(ns);
-	myPromise.then(function(hackableServers) {
-
-		for(var i = 0; i < hackableServers.length; i++) {
-			installer(hackableServers[i]);
-		}
-
-	}, function(error) {
-		ns.tprint("Error. Couldn't get Servers.");
-	});
+	for(var i = 0; i < targets.length; i++) {
+		installer(targets[i]);
+	}
 
 	function installer(server) {
 		ns.tprint(server + " installing...");

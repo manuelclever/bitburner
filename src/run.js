@@ -1,33 +1,42 @@
 /** @param {NS} ns **/
-import {findHackable} from "controlCenter.js";
-import {hackServer} from "controlCenter.js";
+import {updateHackableTargets} from "controlCenter.js";
+import {writeHxScripts} from "controlCenter.js";
 
 export async function main(ns) {
-    var serverRam = ns.getServerRam("home");
-    if (ns.args[0] !== "undefined") {
-        serverRam = ns.args[0];
-    }
-    serverRam -= ns.getScriptRam("run.js");
-
-    const fileRam = ns.getScriptRam("/hx/n00dles.js");
-    const files = ["/hx/n00dles.js", "/hx/foodnstuff.js", "/hx/sigma-cosmetics.js",
-                    "/hx/joesguns.js", "/hx/hong-fang-tea.js", "/hx/harakiri-sushi.js",
-                    "/hx/iron-gym.js"];
-
-    const threadsPerFile = Math.floor((serverRam / fileRam) / files.length);
-    const restRam = serverRam - (threadsPerFile * files.length * fileRam);
-    var addXtraThread = Math.floor(restRam / fileRam);
-
-    if(threadsPerFile > 0) {
-        for(var i = 0; i < files.length; i++) {
-            if(addXtraThread > 0) {
-                await ns.run(files[i], threadsPerFile + 1);
-                addXtraThread--;
-            } else {
-                await ns.run(files[i], threadsPerFile);
-            }
-        }
+    /** RAM */
+    if (ns.args[0] == null) {
+        ns.tprint("Please enter RAM size in GB as argument");
     } else {
-        ns.tprint("Not enough RAM");
+        var serverRam = ns.args[0] - ns.getScriptRam("run.js");
+
+        /** getTargets */
+        await updateHackableTargets(ns);
+        var file = ns.read("targets_hackable.txt");
+        var targets = file.split("\n");
+
+        /** createFiles */
+        await writeHxScripts(ns);
+
+        /** calculate RAM */
+        const fileRam = ns.getScriptRam("/hx/" + targets[0] + ".js");
+
+        const threadsPerFile = Math.floor((serverRam / fileRam) / targets.length);
+        const restRam = serverRam - (threadsPerFile * targets.length * fileRam);
+        var addXtraThread = Math.floor(restRam / fileRam);
+
+        if(threadsPerFile > 0) {
+            for(var i = 0; i < targets.length; i++) {
+                var file = "/hx/" + targets[i] + ".js";
+
+                if(addXtraThread > 0) {
+                    await ns.run(file, threadsPerFile + 1);
+                    addXtraThread--;
+                } else {
+                    await ns.run(file, threadsPerFile);
+                }
+            }
+        } else {
+            ns.tprint("Not enough RAM");
+        }
     }
 }
