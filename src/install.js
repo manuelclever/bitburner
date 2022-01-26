@@ -2,7 +2,6 @@
 import {findHackable} from "controlCenter.js";
 
 export async function main(ns) {
-var allServers = ns.scan("home");
 	
 	let myPromise  = findHackable(ns);
 	myPromise.then(function(hackableServers) {
