@@ -19,6 +19,9 @@ var allServers = ns.scan("home");
 		ns.tprint(server + " installing...");
 		ns.brutessh(server);
 		ns.ftpcrack(server);
+		ns.relaysmtp(server);
+		ns.httpworm(server);
+		ns.sqlinject(server);
 		ns.nuke(server);
 		/**ns.installBackdoor(server);**/
 	}
