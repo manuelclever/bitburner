@@ -6,7 +6,7 @@ export async function main(ns) {
 
 export async function updateHackableTargets(ns) {
 	var file = ns.read("targets.txt");
-	var targets = file.split("\n");
+	var targets = file.split("\r\n");
 	
 	var hackable = getHackable(targets);
 	await writeNewFile(hackable);
@@ -40,7 +40,7 @@ export async function updateHackableTargets(ns) {
 			content = content.concat(servers[i]);
 			
 			if(i !== (servers.length-1)) {
-				content = content.concat("\n");
+				content = content.concat("\r\n");
 			}
 		}
 		await ns.write("targets_hackable.txt", content, "w");
@@ -50,7 +50,7 @@ export async function updateHackableTargets(ns) {
 export async function writeHxScripts(ns) {
 	await updateHackableTargets(ns);
 	var file = ns.read("targets_hackable.txt");
-	var targets = file.split("\n");
+	var targets = file.split("\r\n");
 
 	for(var i = 0; i < targets.length; i++) {
 		await writeNewFile(targets[i]);
@@ -59,14 +59,14 @@ export async function writeHxScripts(ns) {
 	async function writeNewFile(server) {
 		ns.tprint("Write new hx file for " + server);
 
-		var content = "/** @param {NS} ns **/\n" +
-						"import {hackServer} from 'controlCenter.js';\n" +
-						"\n" +
-						"export async function main(ns) {\n" +
-						"\twhile(true) {\n" +
-						"\t\tawait hackServer(ns, '" + server + "');\n" +
-						"\t}\n" +
-						"}\n";
+		var content = "/** @param {NS} ns **/\r\n" +
+						"import {hackServer} from 'controlCenter.js';\r\n" +
+						"\r\n" +
+						"export async function main(ns) {\r\n" +
+						"\twhile(true) {\r\n" +
+						"\t\tawait hackServer(ns, '" + server + "');\r\n" +
+						"\t}\r\n" +
+						"}\r\n";
 
 		await ns.write("/hx/" + server + ".js", content, "w");
 	}

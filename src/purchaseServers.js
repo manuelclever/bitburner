@@ -12,7 +12,7 @@ export async function main(ns) {
 			await ns.write("myserv.txt", boughtServ + "", "w");
 			for(var i = 0; i < serverLimit; i++) {
 				ns.purchaseServer("serv", ram);
-				await ns.write("myserv.txt", boughtServ + "\n", "a");
+				await ns.write("myserv.txt", boughtServ + "\r\n", "a");
 			}
 		}
 	}

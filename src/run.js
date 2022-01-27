@@ -12,7 +12,7 @@ export async function main(ns) {
         /** getTargets */
         await updateHackableTargets(ns);
         var file = ns.read("targets_hackable.txt");
-        var targets = file.split("\n");
+        var targets = file.split("\r\n");
 
         /** createFiles */
         await writeHxScripts(ns);
